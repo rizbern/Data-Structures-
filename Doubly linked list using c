@@ -1,0 +1,141 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node {
+int data;
+struct node *next;
+struct node *prev;
+};
+struct node *head=NULL;
+void insertatstart() {
+struct node *newnode = (struct node*)malloc(sizeof(struct node));
+if (newnode == NULL) {
+printf("Memory not allocated\n");
+}
+else {
+int element;
+printf("Enter element");
+scanf("%d", &element);
+newnode->data = element;
+newnode->next = NULL;
+newnode->prev = NULL;
+if (head == NULL) {
+head = newnode;
+}
+else {
+newnode->next = head;
+head->prev = newnode;
+head = newnode;
+}
+printf("Element added at start is %d\n", newnode->data);
+}
+}
+void insertatend() {
+struct node *newnode = (struct node*)malloc(sizeof(struct node));
+if (head == NULL) {
+printf("Linked list is empty");
+}
+else {
+int element;
+printf("Enter element\n");
+scanf("%d", &element);
+newnode->data = element;
+newnode->next = NULL;
+newnode->prev = NULL;
+if (head == NULL) {
+head = newnode;
+}
+else {
+struct node *temp = head;
+while (temp->next != NULL) {
+temp = temp->next;
+}
+newnode->prev = temp;
+temp->next = newnode;
+}
+printf("Element added at last is %d\n", newnode->data);
+}
+}
+void display() {
+if (head == NULL) {
+printf("LInked list is empty");
+}
+else {
+struct node *temp = head;
+while (temp != NULL){
+printf("%d\t",temp->data);
+temp = temp->next;
+}
+}
+}
+void delbyvalue() {
+if (head == NULL) {
+printf("Empty Linked list");
+}
+int key;
+int flag = 0;
+struct node *temp = head;
+printf("Enter Value to delete\n");
+scanf("%d", &key);
+while (temp != NULL) {
+if (key == temp->data) {
+temp->data = key;
+flag = 1;
+break;
+}
+temp = temp->next;
+}
+if (flag == 0) {
+printf("Element not found");
+}
+if (temp->next && temp->prev == NULL) {//ONly one node
+printf("%d deleted", temp->data);
+free(temp);
+head == NULL;
+}
+else if ((temp->prev == NULL) && temp->next != NULL) {//1st node
+head = head->next;
+printf("%d deleted", temp->data);
+free(temp);
+head->prev = NULL;
+}
+else if (temp->next == NULL) {//Delete at End;
+printf("%d deleted", temp->data);
+temp->prev->next = NULL;
+free(temp);
+}
+else {
+printf("%d deleted", temp->data);//Deleted random
+temp->prev->next = temp->next;
+temp->next->prev = temp->prev;
+free(temp);
+}
+}
+void main() {
+int choice;
+while (1) {
+printf("\n1.Insert at start\n2.Insert at end\n3.Display\n4.Delete\n");
+scanf("%d", &choice);
+switch (choice) {
+case 1:
+insertatstart();
+break;
+case 2:
+insertatend();
+break;
+case 3:
+display();
+break;
+case 4:
+delbyvalue();
+break;
+case 5:
+exit(0);
+break;
+default:
+printf("Invalid choice");
+break;
+}
+}
+_getch();
+}
