@@ -1,0 +1,76 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<conio.h>
+#define size 4
+int arr[size];
+int top = -1;
+void push() { //To add elements to the stack
+if (top == size - 1) {
+printf("Stack overflow");
+}
+else {
+int element;
+printf("Enter new stack element");
+scanf("%d", &element);
+top = top + 1;
+arr[top] = element;
+printf("New element added is %d at index %d\n", arr[top],
+top);
+}
+}
+void pop() { //To delete elements from the stack
+if (top == -1) {
+printf("Stack underflow");
+}
+else {
+top = top - 1;
+printf("Element deleted at index %d which was %d",top+1,arr[top+1]);
+}
+}
+void peek() { //To view top most element
+if (top == -1) {
+printf("Stack underflow");
+}
+else {
+printf("Element at top is %d", arr[top]);
+}
+}
+void display() { //To view all the elements in the stack
+if (top == -1) {
+printf("Stack underflow");
+}
+else {
+int i;
+for (i = top;i >= 0;i--) {
+printf("%d\t", arr[i]);
+}
+}
+}
+void main() {
+int choice;
+while (1) {
+printf("\nEnter 1.for push\nEnter 2.for pop\nEnter 3.for peek\nEnter 4.for
+display\nEnter 5. to exit\n");
+scanf("%d", &choice);
+switch (choice) {
+case 1:
+push();
+break;
+case 2:
+pop();
+break;
+case 3:
+peek();
+break;
+case 4:
+display();
+break;
+case 5:
+exit(0);
+default:
+printf("invalid choice");
+break;
+}
+}
+_getch();
+}
